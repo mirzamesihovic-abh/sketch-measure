@@ -20,7 +20,6 @@ function _(str, data){
 var SM = {
         init: function(context, command){
             Sketch = new API();
-            ga = new Analytics(context);
 
             this.prefs = NSUserDefaults.standardUserDefaults();
             this.context = context;
@@ -638,7 +637,7 @@ SM.extend({
         }
         else{
             configsData = this.extend(newConfigs, this.getConfigs() || {});
-            this.UIMetadata.setObject_forKey (JSON.stringify(configsData), this.prefix);
+            this.UIMetadata.setObject_forKey(JSON.stringify(configsData), this.prefix);
         }
         var saveDoc = this.addShape();
         this.page.addLayers([saveDoc]);
@@ -650,7 +649,7 @@ SM.extend({
             this.command.setValue_forKey_onLayer(null, prefix, container);
         }
         else{
-            configsData = this.UIMetadata.setObject_forKey (null, this.prefix);
+            configsData = this.UIMetadata.setObject_forKey(null, this.prefix);
         }
 
     }
@@ -2777,7 +2776,6 @@ SM.extend({
         return savePanel.URL().path();
     },
     exportPanel: function(){
-        if(ga) ga.sendEvent('spec', 'export to spec viewer');
         var self = this;
         this.artboardsData = [];
         this.selectionArtboards = {};
@@ -2951,7 +2949,6 @@ SM.extend({
                           self.wantsStop = true;
                           log(e)
                           processing.evaluateWebScript("$('#processing-text').html('<small>" + self.toHTMLEncode(message) + "</small>');");
-                          if(ga) ga.sendError(message)
                         }
 
                         if( layerIndex >= artboard.children().length ){
@@ -3038,7 +3035,6 @@ SM.extend({
                     }
 
                     if( self.wantsStop === true ){
-                        if(ga) ga.sendEvent('spec', 'spec done');
                         return interval.cancel();
                     }
 
